@@ -34,8 +34,11 @@ public class TokenProvider {
 
     private JwtParser jwtParser;
 
+
+
     @PostConstruct
     public void init() {
+
         key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
         jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
     }

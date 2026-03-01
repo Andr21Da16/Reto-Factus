@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
         );
 
         User user = userMapper.toUser(signupRequestDTO);
+        user.setId(null);
+
         user.setPassword(passwordEncoder.encode(signupRequestDTO.getPassword()));
         user.setRol(rol);
         userRepository.save(user);
