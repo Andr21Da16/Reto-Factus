@@ -59,7 +59,7 @@ spring:
 
   flyway:
     enabled: true
-    locations: classpath:db
+    locations: classpath:db/migration
     baseline-on-migrate: true
 
 jwt:
