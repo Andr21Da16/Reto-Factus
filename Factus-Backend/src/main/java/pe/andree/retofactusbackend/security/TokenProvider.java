@@ -4,6 +4,7 @@ package pe.andree.retofactusbackend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -13,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Component;
 
@@ -52,7 +52,7 @@ public class TokenProvider {
                 .builder()
                 .setSubject(authentication.getName())
                 .claim("role", role)
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(new Date(System.currentTimeMillis() + jwtValidatyInSeconds *1000))
                 .compact();
     }
