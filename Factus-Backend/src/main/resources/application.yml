@@ -25,9 +25,7 @@ spring:
     name: BackendFactus
 
   datasource:
-    url: ${DATASOURCE_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
 
     hikari:
