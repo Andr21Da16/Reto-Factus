@@ -22,6 +22,9 @@ public class SignupRequestDTO {
     @NotBlank(message = "Las name is mandatory")
     private String lastName;
 
+    @NotBlank(message = "Phone is mandatory")
+    private String phone;
+
     @Email(message = "Invalid email")
     @NotBlank(message = "Email is mandatory")
     private String email;
