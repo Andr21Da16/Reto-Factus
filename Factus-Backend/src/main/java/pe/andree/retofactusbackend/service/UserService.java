@@ -12,5 +12,6 @@ public interface UserService {
 
     ApiResponse<UserProfileResponseDTO> signup(SignupRequestDTO signupRequestDTO);
 
+    UserProfileResponseDTO findByEmail(String email);
 
 }

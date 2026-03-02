@@ -91,6 +91,8 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+
+    @Override
     @Transactional(readOnly = true)
     public UserProfileResponseDTO findByEmail(String email) {
         User user = userRepository.findOneByEmail(email)

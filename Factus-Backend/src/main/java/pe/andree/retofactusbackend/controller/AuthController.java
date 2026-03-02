@@ -4,11 +4,9 @@ package pe.andree.retofactusbackend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.AuthRequestDTO;
 import pe.andree.retofactusbackend.dto.request.SignupRequestDTO;
@@ -35,4 +33,17 @@ public class AuthController {
         return new ResponseEntity<>(userProfileResponseDTO, HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/auth/me")
+    public ResponseEntity<ApiResponse<UserProfileResponseDTO>> me(Authentication authentication) {
+
+        UserProfileResponseDTO response = userService.findByEmail(authentication.getName());
+
+        return ResponseEntity.ok(ApiResponse.<UserProfileResponseDTO>builder()
+                .success(true)
+                .message("Usuario autenticado")
+                .data(response)
+                .build()
+        );
+    }
 }
