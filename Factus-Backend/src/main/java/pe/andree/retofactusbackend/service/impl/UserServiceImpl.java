@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.AuthRequestDTO;
 import pe.andree.retofactusbackend.dto.request.SignupRequestDTO;
 import pe.andree.retofactusbackend.dto.response.AuthResponseDTO;
@@ -21,6 +22,8 @@ import pe.andree.retofactusbackend.repository.RolRepository;
 import pe.andree.retofactusbackend.repository.UserRepository;
 import pe.andree.retofactusbackend.security.TokenProvider;
 import pe.andree.retofactusbackend.service.UserService;
+
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public AuthResponseDTO signIn(AuthRequestDTO authRequest) {
+    public ApiResponse<AuthResponseDTO> signIn(AuthRequestDTO authRequest) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 authRequest.getEmail(),
                 authRequest.getPassword()
@@ -53,11 +56,19 @@ public class UserServiceImpl implements UserService {
 
         UserProfileResponseDTO userProfile = findByEmail(authRequest.getEmail());
 
-        return userMapper.toAuthResponseDTO(accessToken, userProfile);
+
+        return ApiResponse.<AuthResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Login successfully")
+                .description(null)
+                .data(userMapper.toAuthResponseDTO(accessToken, userProfile))
+                .meta(null)
+                .build();
     }
 
     @Transactional
-    public UserProfileResponseDTO signup(SignupRequestDTO signupRequestDTO){
+    public ApiResponse<UserProfileResponseDTO> signup(SignupRequestDTO signupRequestDTO){
         boolean emailAlreadyExists = userRepository.existsByEmail(signupRequestDTO.getEmail());
 
         if (emailAlreadyExists){
@@ -73,7 +84,15 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(signupRequestDTO.getPassword()));
         user.setRol(rol);
         userRepository.save(user);
-        return userMapper.toUserProfileResponseDTO(user);
+
+        return ApiResponse.<UserProfileResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Register successfully")
+                .description(null)
+                .data(userMapper.toUserProfileResponseDTO(user))
+                .meta(null)
+                .build();
     }
 
     @Transactional(readOnly = true)
