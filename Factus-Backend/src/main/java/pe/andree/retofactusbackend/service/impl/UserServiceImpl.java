@@ -61,9 +61,7 @@ public class UserServiceImpl implements UserService {
                 .timeStamp(LocalDateTime.now())
                 .success(true)
                 .message("Login successfully")
-                .description(null)
                 .data(userMapper.toAuthResponseDTO(accessToken, userProfile))
-                .meta(null)
                 .build();
     }
 
@@ -89,9 +87,7 @@ public class UserServiceImpl implements UserService {
                 .timeStamp(LocalDateTime.now())
                 .success(true)
                 .message("Register successfully")
-                .description(null)
                 .data(userMapper.toUserProfileResponseDTO(user))
-                .meta(null)
                 .build();
     }
 

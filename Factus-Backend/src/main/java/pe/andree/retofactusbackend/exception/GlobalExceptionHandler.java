@@ -21,8 +21,6 @@ public class GlobalExceptionHandler {
                 .success(false)
                 .message(ex.getMessage())
                 .description(request.getDescription(false))
-                .data(null)
-                .meta(null)
                 .build(), HttpStatus.NOT_FOUND);
     }
 
@@ -33,8 +31,6 @@ public class GlobalExceptionHandler {
                 .success(false)
                 .message(ex.getMessage())
                 .description(request.getDescription(false))
-                .data(null)
-                .meta(null)
                 .build(), HttpStatus.NOT_FOUND);
     }
 
