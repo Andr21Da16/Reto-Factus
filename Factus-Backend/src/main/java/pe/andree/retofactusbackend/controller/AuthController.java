@@ -34,7 +34,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/auth/me")
+    @GetMapping("/me")
     public ResponseEntity<ApiResponse<UserProfileResponseDTO>> me(Authentication authentication) {
 
         UserProfileResponseDTO response = userService.findByEmail(authentication.getName());

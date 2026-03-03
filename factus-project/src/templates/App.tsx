@@ -1,14 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
 
 
 
 function App() {
 
-  const navigate = useNavigate();
-  if (!window.localStorage.getItem("token")){
-    navigate("/login")
-  }
+
   const [count, setCount] = useState(0)
 
   return (

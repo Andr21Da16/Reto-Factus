@@ -43,3 +43,10 @@ export interface LoginResponse {
     user: User
 }
 
+export interface FeaturesProps {
+    icon?: React.ComponentType<{ className?: string }>,
+    children?: React.ReactNode,
+    mainText: string,
+    description: string,
+}
+

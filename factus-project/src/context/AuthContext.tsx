@@ -2,10 +2,7 @@ import api from "@/api/axios";
 import type { ApiResponse, LoginRequest, LoginResponse, RegisterRequest, User } from "@/types";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
-import { createContext, useEffect, useState } from "react";
-
-
-
+import { createContext, useContext ,useEffect, useState } from "react";
 
 interface AuthContextType {
     user: User | null;
@@ -130,4 +127,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
 
+};
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
 };

@@ -1,4 +1,4 @@
-import ProtectedRoute from "#/ProtectedRoute";
+import ProtectedRoute from "#/common/ProtectedRoute.tsx";
 import App from "@/templates/App";
 import Login from "@/templates/Login";
 import { createBrowserRouter } from "react-router";
