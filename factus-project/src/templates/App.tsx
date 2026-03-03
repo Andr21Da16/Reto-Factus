@@ -1,10 +1,11 @@
 import { useState } from 'react'
+import { useAuth } from "@/context/AuthContext.tsx";
 
 
 
 function App() {
 
-
+  const {logout} = useAuth()
   const [count, setCount] = useState(0)
 
   return (
@@ -24,6 +25,10 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <button type="button" onClick={() => logout()} className="bg-amber-300 text-6xl rounded-md">
+        log out
+      </button>
     </>
   )
 }
