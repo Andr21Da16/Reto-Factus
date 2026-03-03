@@ -18,7 +18,7 @@ const Login = () => {
 
     const {  isAuthenticated } = useAuth();
     const location = useLocation();
-    console.log(isAuthenticated);
+
     // Si venimos de un redirect, usamos location.state?.from
     const from = (location.state as { from?: string })?.from || "/";
 
