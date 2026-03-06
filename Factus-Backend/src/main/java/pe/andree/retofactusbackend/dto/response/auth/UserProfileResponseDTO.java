@@ -1,4 +1,4 @@
-package pe.andree.retofactusbackend.dto.response;
+package pe.andree.retofactusbackend.dto.response.auth;
 
 
 import lombok.AllArgsConstructor;
@@ -16,5 +16,7 @@ public class UserProfileResponseDTO {
     private String firstName;
     private String lastName;
     private String email;
+    private String company;
     private String role;
+
 }

@@ -1,6 +1,8 @@
 package pe.andree.retofactusbackend.exception;
 
 
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,5 +47,29 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .meta(null)
                 .build(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiResponse<Void>> handleEntityNotFoundException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ApiResponse.<Void>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(false)
+                .message(ex.getMessage())
+                .description(request.getDescription(false))
+                .data(null)
+                .meta(null)
+                .build(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDataIntegrityViolationException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ApiResponse.<Void>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(false)
+                .message(ex.getMessage())
+                .description(request.getDescription(false))
+                .data(null)
+                .meta(null)
+                .build(), HttpStatus.CONFLICT);
     }
 }

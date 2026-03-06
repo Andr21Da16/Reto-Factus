@@ -1,5 +1,6 @@
 package pe.andree.retofactusbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Rol {
     private String nameRol;
 
     @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<User> users;
 
 

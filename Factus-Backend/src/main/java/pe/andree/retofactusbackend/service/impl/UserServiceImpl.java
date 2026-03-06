@@ -9,15 +9,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.andree.retofactusbackend.dto.ApiResponse;
-import pe.andree.retofactusbackend.dto.request.AuthRequestDTO;
-import pe.andree.retofactusbackend.dto.request.SignupRequestDTO;
-import pe.andree.retofactusbackend.dto.response.AuthResponseDTO;
-import pe.andree.retofactusbackend.dto.response.UserProfileResponseDTO;
+import pe.andree.retofactusbackend.dto.request.auth.AuthRequestDTO;
+import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
+import pe.andree.retofactusbackend.dto.response.auth.AuthResponseDTO;
+import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
+import pe.andree.retofactusbackend.entities.Company;
 import pe.andree.retofactusbackend.entities.Rol;
 import pe.andree.retofactusbackend.entities.User;
 import pe.andree.retofactusbackend.exception.BadRequestException;
 import pe.andree.retofactusbackend.exception.ResourceNotFoundException;
 import pe.andree.retofactusbackend.mapper.UserMapper;
+import pe.andree.retofactusbackend.repository.CompanyRepository;
 import pe.andree.retofactusbackend.repository.RolRepository;
 import pe.andree.retofactusbackend.repository.UserRepository;
 import pe.andree.retofactusbackend.security.TokenProvider;
@@ -34,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final RolRepository rolRepository;
+    private final CompanyRepository companyRepository;
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
@@ -77,10 +80,13 @@ public class UserServiceImpl implements UserService {
                 ResourceNotFoundException::new
         );
 
+        Company company = companyRepository.getReferenceById(signupRequestDTO.getCompanyId());
+
         User user = userMapper.toUser(signupRequestDTO);
         user.setId(null);
         user.setPassword(passwordEncoder.encode(signupRequestDTO.getPassword()));
         user.setRol(rol);
+        user.setCompany(company);
         userRepository.save(user);
 
         return ApiResponse.<UserProfileResponseDTO>builder()

@@ -1,5 +1,5 @@
 
-import BackgroundLogin from "#/layout/BackgroundLogin.tsx";
+import Background from "#/layout/Background.tsx";
 import Logo from "#/layout/Logo.tsx";
 import Heading from "#/auth/Heading.tsx";
 import {Lock} from 'lucide-react'
@@ -28,7 +28,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
-           <BackgroundLogin />
+           <Background />
 
             {/*Login form*/}
             <div className="relative z-10 w-full max-w-5xl">

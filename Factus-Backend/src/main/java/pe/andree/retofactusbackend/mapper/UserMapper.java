@@ -3,9 +3,9 @@ package pe.andree.retofactusbackend.mapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import pe.andree.retofactusbackend.dto.request.SignupRequestDTO;
-import pe.andree.retofactusbackend.dto.response.AuthResponseDTO;
-import pe.andree.retofactusbackend.dto.response.UserProfileResponseDTO;
+import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
+import pe.andree.retofactusbackend.dto.response.auth.AuthResponseDTO;
+import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
 import pe.andree.retofactusbackend.entities.User;
 
 @Component

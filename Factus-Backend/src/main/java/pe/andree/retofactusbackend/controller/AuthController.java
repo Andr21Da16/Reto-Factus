@@ -8,10 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pe.andree.retofactusbackend.dto.ApiResponse;
-import pe.andree.retofactusbackend.dto.request.AuthRequestDTO;
-import pe.andree.retofactusbackend.dto.request.SignupRequestDTO;
-import pe.andree.retofactusbackend.dto.response.AuthResponseDTO;
-import pe.andree.retofactusbackend.dto.response.UserProfileResponseDTO;
+import pe.andree.retofactusbackend.dto.request.auth.AuthRequestDTO;
+import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
+import pe.andree.retofactusbackend.dto.response.auth.AuthResponseDTO;
+import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
 import pe.andree.retofactusbackend.service.UserService;
 
 @RequiredArgsConstructor

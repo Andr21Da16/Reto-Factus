@@ -1,4 +1,4 @@
-package pe.andree.retofactusbackend.dto.request;
+package pe.andree.retofactusbackend.dto.request.auth;
 
 
 import jakarta.validation.constraints.Email;
@@ -33,7 +33,11 @@ public class SignupRequestDTO {
     @Size(min = 4)
     private String password;
 
+    @NotNull(message = "Rol ID is mandatory")
     private Long rolId;
+
+    @NotNull(message = "Company ID is mandatory")
+    private Long companyId;
 
 
 }

@@ -1,5 +1,6 @@
 package pe.andree.retofactusbackend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -31,5 +32,10 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "rol_id")
     private Rol rol;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    @JsonBackReference
+    private Company company;
 
 }

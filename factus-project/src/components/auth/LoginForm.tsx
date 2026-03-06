@@ -98,7 +98,7 @@ const LoginForm = () =>{
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
           <div>
             <p className="font-semibold text-sm">Error de autenticación</p>
-            <p className="text-xs text-rose-100">{error}</p>
+
           </div>
         </div>
       )}

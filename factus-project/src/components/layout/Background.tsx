@@ -1,6 +1,6 @@
 
 
-const BackgroundLogin = () => {
+const Background = () => {
   return (
     <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-rose-900 to-red-950">
       {/* Animated gradient orbs */}
@@ -26,4 +26,4 @@ const BackgroundLogin = () => {
   )
 }
 
-export default BackgroundLogin;
+export default Background;

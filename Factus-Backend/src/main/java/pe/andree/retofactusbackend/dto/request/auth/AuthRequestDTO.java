@@ -1,4 +1,4 @@
-package pe.andree.retofactusbackend.dto.request;
+package pe.andree.retofactusbackend.dto.request.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
