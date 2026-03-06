@@ -1,6 +1,7 @@
 package pe.andree.retofactusbackend.config;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
@@ -24,6 +25,9 @@ public class ModelMapperConfig {
         mapper.typeMap(User.class, UserProfileResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getCompany().getNameCompany(), UserProfileResponseDTO::setCompany)
         );
+
+        mapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.STRICT);
 
         return mapper;
     }
