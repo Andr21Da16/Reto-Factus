@@ -2,8 +2,11 @@ package pe.andree.retofactusbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.andree.retofactusbackend.entities.Company;
+import pe.andree.retofactusbackend.domain.entities.Company;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+    boolean existsCompanyByNameCompany(String nameCompany);
+
+    boolean existsCompanyByRucNit(String rucNit);
 }

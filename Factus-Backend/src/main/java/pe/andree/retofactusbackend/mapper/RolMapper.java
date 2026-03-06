@@ -5,7 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import pe.andree.retofactusbackend.dto.request.rol.RolRequestDTO;
 import pe.andree.retofactusbackend.dto.response.rol.RolResponseDTO;
-import pe.andree.retofactusbackend.entities.Rol;
+import pe.andree.retofactusbackend.domain.entities.Rol;
 
 import java.util.List;
 

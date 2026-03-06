@@ -1,4 +1,4 @@
-package pe.andree.retofactusbackend.entities;
+package pe.andree.retofactusbackend.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

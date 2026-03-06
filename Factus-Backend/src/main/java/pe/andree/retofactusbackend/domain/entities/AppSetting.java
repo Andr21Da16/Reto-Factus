@@ -1,13 +1,11 @@
-package pe.andree.retofactusbackend.entities;
+package pe.andree.retofactusbackend.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
-import java.util.List;
-import java.util.Map;
+import pe.andree.retofactusbackend.domain.setting.AppSettingsData;
 
 @Data
 @Entity
@@ -21,7 +19,7 @@ public class AppSetting {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
-    private Map<String, Object> settings;
+    private AppSettingsData settings;
 
 
     @OneToOne

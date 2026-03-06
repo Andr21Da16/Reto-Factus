@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
 import pe.andree.retofactusbackend.dto.response.auth.AuthResponseDTO;
 import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
-import pe.andree.retofactusbackend.entities.User;
+import pe.andree.retofactusbackend.domain.entities.User;
 
 @Component
 @RequiredArgsConstructor

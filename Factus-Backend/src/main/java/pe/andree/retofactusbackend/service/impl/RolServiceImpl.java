@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.rol.RolRequestDTO;
 import pe.andree.retofactusbackend.dto.response.rol.RolResponseDTO;
-import pe.andree.retofactusbackend.entities.Rol;
+import pe.andree.retofactusbackend.domain.entities.Rol;
 import pe.andree.retofactusbackend.exception.ResourceNotFoundException;
 import pe.andree.retofactusbackend.mapper.MetaMapper;
 import pe.andree.retofactusbackend.mapper.RolMapper;

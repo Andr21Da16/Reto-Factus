@@ -2,7 +2,7 @@ package pe.andree.retofactusbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pe.andree.retofactusbackend.entities.User;
+import pe.andree.retofactusbackend.domain.entities.User;
 
 import java.util.Optional;
 

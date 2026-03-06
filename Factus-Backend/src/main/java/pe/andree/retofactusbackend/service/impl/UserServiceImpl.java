@@ -13,9 +13,9 @@ import pe.andree.retofactusbackend.dto.request.auth.AuthRequestDTO;
 import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
 import pe.andree.retofactusbackend.dto.response.auth.AuthResponseDTO;
 import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
-import pe.andree.retofactusbackend.entities.Company;
-import pe.andree.retofactusbackend.entities.Rol;
-import pe.andree.retofactusbackend.entities.User;
+import pe.andree.retofactusbackend.domain.entities.Company;
+import pe.andree.retofactusbackend.domain.entities.Rol;
+import pe.andree.retofactusbackend.domain.entities.User;
 import pe.andree.retofactusbackend.exception.BadRequestException;
 import pe.andree.retofactusbackend.exception.ResourceNotFoundException;
 import pe.andree.retofactusbackend.mapper.UserMapper;
@@ -80,7 +80,8 @@ public class UserServiceImpl implements UserService {
                 ResourceNotFoundException::new
         );
 
-        Company company = companyRepository.getReferenceById(signupRequestDTO.getCompanyId());
+        Company company = companyRepository.findById(signupRequestDTO.getCompanyId())
+                .orElseThrow(ResourceNotFoundException::new);
 
         User user = userMapper.toUser(signupRequestDTO);
         user.setId(null);
