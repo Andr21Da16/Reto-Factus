@@ -77,3 +77,4 @@ r2:
   secret_key: ${R2_SECRET_ACCESS_KEY}
   endpoint: ${R2_URL}
   bucket_name: ${R2_BUCKET}
+  public_url: ${R2_PUBLIC_URL}
