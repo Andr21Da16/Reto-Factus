@@ -10,7 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppSettingRequestDTO {
-
-    private Long companyId;
     private SettingsRequestDTO settings;
 }

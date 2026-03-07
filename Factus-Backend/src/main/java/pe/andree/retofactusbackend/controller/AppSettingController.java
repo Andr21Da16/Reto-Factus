@@ -30,7 +30,7 @@ public class AppSettingController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<AppSettingResponseDTO>> addSettings(@RequestPart(name = "settings") String settings,
-                                                                         @RequestPart(name = "file") MultipartFile file){
+                                                                         @RequestPart(name = "file", required = false) MultipartFile file){
         ObjectMapper objectMapper = new ObjectMapper();
         AppSettingRequestDTO request = null;
         try {
