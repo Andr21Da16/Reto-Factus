@@ -55,7 +55,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             );
             if (response.sdkHttpResponse().isSuccessful()) {
 
-                return uri + "/" + bucketName + "/" + key;
+                return uri + "/" + key;
             } else {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
                         "An error occurred while uploading the file");
