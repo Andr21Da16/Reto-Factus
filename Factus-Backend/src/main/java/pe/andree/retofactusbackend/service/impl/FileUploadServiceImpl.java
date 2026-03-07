@@ -16,6 +16,8 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.UUID;
 
 @Service
@@ -69,15 +71,22 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Override
     public boolean deleteFile(String url) {
 
-        String key = url.substring(url.indexOf(bucketName) + bucketName.length() + 1);
+        try {
+            URL parsedUrl = new URL(url);
+            String key = parsedUrl.getPath();
+            if (key.startsWith("/")) {
+                key = key.substring(1);
+            }
 
-        DeleteObjectRequest request = DeleteObjectRequest.builder()
-                .bucket(bucketName)
-                .key(key)
-                .build();
+            DeleteObjectRequest request = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
 
-        s3Client.deleteObject(request);
-
-        return true;
+            s3Client.deleteObject(request);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
     }
 }
