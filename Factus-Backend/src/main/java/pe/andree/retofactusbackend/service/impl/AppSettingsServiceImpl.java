@@ -38,9 +38,14 @@ public class AppSettingsServiceImpl implements AppSettingService {
 
         AppSetting result = appSettingMapper.toAppSetting(settings);
 
+        if (result.getSettings() == null) {
+            result.setSettings(new AppSettingsData());
+        }
+
         result.getSettings().getBrandingSettings().setLogoUrl(imgUrl);
 
         result = appSettingRepository.save(result);
+
         return ApiResponse.<AppSettingResponseDTO>builder()
                 .timeStamp(LocalDateTime.now())
                 .success(true)

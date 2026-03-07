@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class AppSettingRequestDTO {
 
     private Long companyId;
-    private SettingsRequestDTO appSetting;
+    private SettingsRequestDTO settings;
 }

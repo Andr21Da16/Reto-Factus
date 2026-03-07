@@ -5,6 +5,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pe.andree.retofactusbackend.domain.entities.AppSetting;
+import pe.andree.retofactusbackend.dto.request.settings.AppSettingRequestDTO;
 import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
 import pe.andree.retofactusbackend.domain.entities.User;
 import pe.andree.retofactusbackend.dto.response.setting.AppSettingResponseDTO;
@@ -31,6 +32,9 @@ public class ModelMapperConfig {
         mapper.typeMap(AppSetting.class, AppSettingResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getCompany().getNameCompany(), AppSettingResponseDTO::setCompanyName)
         );
+
+        mapper.typeMap(AppSettingRequestDTO.class, AppSetting.class)
+                .addMappings(m -> m.map(AppSettingRequestDTO::getAppSetting, AppSetting::setSettings));
 
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
