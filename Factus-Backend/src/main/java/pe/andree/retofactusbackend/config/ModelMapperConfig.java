@@ -18,13 +18,10 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
 
-        // Configuración para mapear rol -> rolName
         mapper.typeMap(User.class, UserProfileResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getRol().getNameRol(), UserProfileResponseDTO::setRole)
         );
 
-
-        // Configuración para mapear rol -> companyName
         mapper.typeMap(User.class, UserProfileResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getCompany().getNameCompany(), UserProfileResponseDTO::setCompany)
         );
@@ -32,9 +29,6 @@ public class ModelMapperConfig {
         mapper.typeMap(AppSetting.class, AppSettingResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getCompany().getNameCompany(), AppSettingResponseDTO::setCompanyName)
         );
-
-        mapper.typeMap(AppSettingRequestDTO.class, AppSetting.class)
-                .addMappings(m -> m.map(AppSettingRequestDTO::getSettings, AppSetting::setSettings));
 
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
