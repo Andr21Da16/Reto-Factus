@@ -34,7 +34,7 @@ public class ModelMapperConfig {
         );
 
         mapper.typeMap(AppSettingRequestDTO.class, AppSetting.class)
-                .addMappings(m -> m.map(AppSettingRequestDTO::getAppSetting, AppSetting::setSettings));
+                .addMappings(m -> m.map(AppSettingRequestDTO::getSettings, AppSetting::setSettings));
 
         mapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.STRICT);
