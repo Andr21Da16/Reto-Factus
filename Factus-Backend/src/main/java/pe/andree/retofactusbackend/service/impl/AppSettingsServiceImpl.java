@@ -13,9 +13,12 @@ import pe.andree.retofactusbackend.domain.entities.AppSetting;
 import pe.andree.retofactusbackend.domain.entities.Company;
 import pe.andree.retofactusbackend.domain.entities.User;
 import pe.andree.retofactusbackend.domain.setting.AppSettingsData;
+import pe.andree.retofactusbackend.domain.setting.BrandingSettingsData;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.settings.AppSettingRequestDTO;
+import pe.andree.retofactusbackend.dto.request.settings.BrandingSettingsDataRequestDTO;
 import pe.andree.retofactusbackend.dto.response.setting.AppSettingResponseDTO;
+import pe.andree.retofactusbackend.dto.response.setting.BrandingSettingsDataResponseDTO;
 import pe.andree.retofactusbackend.exception.ResourceNotFoundException;
 import pe.andree.retofactusbackend.mapper.AppSettingMapper;
 import pe.andree.retofactusbackend.repository.AppSettingRepository;
@@ -31,6 +34,7 @@ public class AppSettingsServiceImpl implements AppSettingService {
 
     private final AppSettingRepository appSettingRepository;
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
 
 
     private final AppSettingMapper appSettingMapper;
@@ -39,15 +43,13 @@ public class AppSettingsServiceImpl implements AppSettingService {
 
 
     @Override
-    public ApiResponse<AppSettingResponseDTO> addSetting(AppSettingRequestDTO settings, MultipartFile file) {
+    public ApiResponse<AppSettingResponseDTO> addSetting(Long id, AppSettingRequestDTO settings, MultipartFile file) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = userRepository.findOneByEmail(authentication.getName()).orElseThrow(
-                () -> new ResourceNotFoundException("User not found by username")
-        );
+        Company company = companyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Company not found."));
 
-        Boolean exists = appSettingRepository.existsAppSettingByCompany_Id(user.getCompany().getId());
+
+        Boolean exists = appSettingRepository.existsAppSettingByCompany_Id(company.getId());
 
         if (exists){
             throw new DataIntegrityViolationException("Adjustments have already been made for that company.");
@@ -56,7 +58,7 @@ public class AppSettingsServiceImpl implements AppSettingService {
 
         String imgUrl = "";
         if (file != null){
-           imgUrl = fileUploadService.uploadFile(file, user.getCompany().getId());
+           imgUrl = fileUploadService.uploadFile(file, company.getId());
         }
 
         AppSetting result = appSettingMapper.toAppSetting(settings);
@@ -66,7 +68,7 @@ public class AppSettingsServiceImpl implements AppSettingService {
         }
 
         result.getSettings().getBrandingSettings().setLogoUrl(imgUrl);
-        result.setCompany(user.getCompany());
+        result.setCompany(company);
 
         result = appSettingRepository.save(result);
 
@@ -76,5 +78,89 @@ public class AppSettingsServiceImpl implements AppSettingService {
                 .message("Settings created")
                 .data(appSettingMapper.toSettingResponseDTO(result))
                 .build();
+    }
+
+    @Override
+    public ApiResponse<BrandingSettingsDataResponseDTO> createBrandingData(BrandingSettingsDataRequestDTO request, MultipartFile file) {
+        User user = getUser();
+        AppSetting appSetting = appSettingRepository.findByCompanyId(user.getCompany().getId()).
+                orElseThrow(() -> new ResourceNotFoundException("No settings found for this company. Cannot add branding data."));
+
+        BrandingSettingsData brandingSetting = appSettingMapper.toBrandingSettingsData(request);
+
+        if (file != null) {
+            String urlImg = fileUploadService.uploadFile(file, user.getCompany().getId());
+            brandingSetting.setLogoUrl(urlImg);
+        }
+
+        appSetting.getSettings().setBrandingSettings(brandingSetting);
+        appSetting = appSettingRepository.save(appSetting);
+        return ApiResponse.<BrandingSettingsDataResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Settings updated")
+                .data(appSettingMapper.toBrandingSettingsDataResponseDTO(appSetting.getSettings().getBrandingSettings()))
+                .build();
+    }
+
+    @Override
+    public ApiResponse<BrandingSettingsDataResponseDTO> updateBrandingData(BrandingSettingsDataRequestDTO request, MultipartFile file) {
+        User user = getUser();
+
+
+        AppSetting appSetting = appSettingRepository.findByCompanyId(user.getCompany().getId()).
+                orElseThrow(() -> new ResourceNotFoundException("Settings not found by company Id"));
+
+        BrandingSettingsData brandingSetting = appSettingMapper.toBrandingSettingsData(request);
+
+
+        String logoUrl = appSetting.getSettings().getBrandingSettings().getLogoUrl();
+
+        if (file != null) {
+
+            if (logoUrl != null && !logoUrl.isEmpty()) {
+                fileUploadService.deleteFile(logoUrl);
+            }
+
+            String urlImg = fileUploadService.uploadFile(file, user.getCompany().getId());
+            brandingSetting.setLogoUrl(urlImg);
+        } else {
+            // Mantener logo existente si no suben uno nuevo
+            brandingSetting.setLogoUrl(logoUrl);
+        }
+
+        appSetting.getSettings().setBrandingSettings(brandingSetting);
+        appSetting = appSettingRepository.save(appSetting);
+        return ApiResponse.<BrandingSettingsDataResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Settings updated")
+                .data(appSettingMapper.toBrandingSettingsDataResponseDTO(appSetting.getSettings().getBrandingSettings()))
+                .build();
+    }
+
+    @Override
+    public ApiResponse<BrandingSettingsDataResponseDTO> getBrandingData() {
+        User user = getUser();
+
+        AppSetting appSetting = appSettingRepository.findByCompanyId(user.getCompany().getId()).
+                orElseThrow(() -> new ResourceNotFoundException("Settings not found by company Id"));
+
+        return ApiResponse.<BrandingSettingsDataResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Branding Data")
+                .data(appSettingMapper.toBrandingSettingsDataResponseDTO(appSetting.getSettings().getBrandingSettings()))
+                .build();
+    }
+
+
+    private User getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository.findOneByEmail(authentication.getName()).orElseThrow(
+                () -> new ResourceNotFoundException("User not found by username")
+        );
+        return user;
     }
 }
