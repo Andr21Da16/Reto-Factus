@@ -27,6 +27,12 @@ public class AppSettingController {
 
     private final AppSettingService appSettingService;
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<AppSettingResponseDTO>> getSetting(){
+        ApiResponse<AppSettingResponseDTO> response = appSettingService.getSetting();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('DEVELOPER')")
     @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse<AppSettingResponseDTO>> addSettings(

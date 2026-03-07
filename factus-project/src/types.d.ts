@@ -44,6 +44,17 @@ export interface LoginResponse {
     user: User
 }
 
+export interface CompaniesResponse {
+    id: number,
+    nameCompany: string,
+    rucNit: string,
+    taxAddress: string,
+    phone: string
+}
+export interface AppSettings {
+    
+}
+
 export interface FeaturesProps {
     icon?: React.ComponentType<{ className?: string }>,
     children?: React.ReactNode,

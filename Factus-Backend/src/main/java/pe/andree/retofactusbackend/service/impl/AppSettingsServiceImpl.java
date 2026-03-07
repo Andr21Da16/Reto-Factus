@@ -43,6 +43,21 @@ public class AppSettingsServiceImpl implements AppSettingService {
 
 
     @Override
+    public ApiResponse<AppSettingResponseDTO> getSetting() {
+        User user = getUser();
+
+        AppSetting appSetting = appSettingRepository.findByCompanyId(user.getCompany().getId()).
+                orElseThrow(() -> new ResourceNotFoundException("Settings not found by company Id"));
+
+        return ApiResponse.<AppSettingResponseDTO>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(true)
+                .message("Branding Data")
+                .data(appSettingMapper.toSettingResponseDTO(appSetting))
+                .build();
+    }
+
+    @Override
     public ApiResponse<AppSettingResponseDTO> addSetting(Long id, AppSettingRequestDTO settings, MultipartFile file) {
 
 

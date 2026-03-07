@@ -12,6 +12,7 @@ import pe.andree.retofactusbackend.dto.response.setting.BrandingSettingsDataResp
 
 public interface AppSettingService {
 
+    ApiResponse<AppSettingResponseDTO> getSetting();
     ApiResponse<AppSettingResponseDTO> addSetting(Long id, AppSettingRequestDTO settings, MultipartFile file);
     ApiResponse<BrandingSettingsDataResponseDTO> createBrandingData(BrandingSettingsDataRequestDTO request, MultipartFile file);
     ApiResponse<BrandingSettingsDataResponseDTO> updateBrandingData(BrandingSettingsDataRequestDTO request, MultipartFile file);
