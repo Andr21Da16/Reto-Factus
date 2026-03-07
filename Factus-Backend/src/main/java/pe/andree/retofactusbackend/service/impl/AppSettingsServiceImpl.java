@@ -30,14 +30,13 @@ import java.time.LocalDateTime;
 public class AppSettingsServiceImpl implements AppSettingService {
 
     private final AppSettingRepository appSettingRepository;
-    private final CompanyRepository companyRepository;
     private final UserRepository userRepository;
 
 
     private final AppSettingMapper appSettingMapper;
 
     private final FileUploadServiceImpl fileUploadService;
-    private final OAuth2AuthorizedClientService authorizedClientService;
+
 
     @Override
     public ApiResponse<AppSettingResponseDTO> addSetting(AppSettingRequestDTO settings, MultipartFile file) {
