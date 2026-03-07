@@ -27,7 +27,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     @Value("${r2.bucket_name}")
     private String bucketName;
 
-    @Value("${r2.endpoint}")
+    @Value("${r2.public_url2.}")
     private String uri;
 
     @Override
