@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AppSettingsData {
 
-    private BrandingSettingsData brandingSettings;
+    private BrandingSettingsData brandingSettings = new BrandingSettingsData();
 }
