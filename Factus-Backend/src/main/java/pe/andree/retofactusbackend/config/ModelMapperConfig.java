@@ -4,8 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pe.andree.retofactusbackend.domain.entities.AppSetting;
 import pe.andree.retofactusbackend.dto.response.auth.UserProfileResponseDTO;
 import pe.andree.retofactusbackend.domain.entities.User;
+import pe.andree.retofactusbackend.dto.response.setting.AppSettingResponseDTO;
 
 @Configuration
 public class ModelMapperConfig {
@@ -24,6 +26,10 @@ public class ModelMapperConfig {
         // Configuración para mapear rol -> companyName
         mapper.typeMap(User.class, UserProfileResponseDTO.class).addMappings(m ->
                 m.map(src -> src.getCompany().getNameCompany(), UserProfileResponseDTO::setCompany)
+        );
+
+        mapper.typeMap(AppSetting.class, AppSettingResponseDTO.class).addMappings(m ->
+                m.map(src -> src.getCompany().getNameCompany(), AppSettingResponseDTO::setCompanyName)
         );
 
         mapper.getConfiguration()

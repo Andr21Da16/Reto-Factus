@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AppSettingRepository extends JpaRepository<AppSetting, Long> {
     Optional<AppSetting> findByCompanyId(Long companyId);
+
+   Boolean existsAppSettingByCompany_Id(Long companyId);
 }

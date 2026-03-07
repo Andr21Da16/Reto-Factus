@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 
 import java.time.LocalDateTime;
@@ -85,5 +86,19 @@ public class GlobalExceptionHandler {
                 .data(null)
                 .meta(null)
                 .build(), HttpStatus.CONFLICT);
+    }
+
+
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(Exception ex, WebRequest request) {
+        return new ResponseEntity<>(ApiResponse.<Void>builder()
+                .timeStamp(LocalDateTime.now())
+                .success(false)
+                .message(ex.getMessage())
+                .description(request.getDescription(false))
+                .data(null)
+                .meta(null)
+                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

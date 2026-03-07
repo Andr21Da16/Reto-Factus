@@ -70,3 +70,10 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: 36000000
   issuer: factus-api
+
+r2:
+  token: ${TOKEN_VALUE}
+  access_key: ${R2_ACCESS_KEY}
+  secret_key: ${R2_SECRET_ACCESS_KEY}
+  endpoint: ${R2_URL}
+  bucket_name: ${R2_BUCKET}

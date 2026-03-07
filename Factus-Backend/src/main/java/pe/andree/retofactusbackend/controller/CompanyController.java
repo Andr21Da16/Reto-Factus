@@ -3,6 +3,7 @@ package pe.andree.retofactusbackend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.company.CompanyRequestDTO;
@@ -14,6 +15,7 @@ import pe.andree.retofactusbackend.service.CompanyService;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/companies")
+@Validated
 public class CompanyController {
 
     private final CompanyService companyService;

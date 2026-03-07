@@ -1,16 +1,15 @@
-package pe.andree.retofactusbackend.domain.setting;
+package pe.andree.retofactusbackend.dto.response.setting;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class BrandingSettingsData {
-
+@Data
+public class BrandingSettingsDataResponseDTO {
     private String appName;
 
     private String primaryColor;
@@ -22,5 +21,4 @@ public class BrandingSettingsData {
     private String fontFamily;
 
     private Boolean darkModeEnabled;
-
 }
