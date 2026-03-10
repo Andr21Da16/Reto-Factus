@@ -1,10 +1,10 @@
 
 import Background from "#/layout/Background.tsx";
-import Logo from "#/layout/Logo.tsx";
+import Logo from "#/auth/Logo.tsx";
 import Heading from "#/auth/Heading.tsx";
 import {Lock} from 'lucide-react'
 import type { FeaturesProps } from "@/types";
-import Feature from "#/layout/Feature.tsx";
+import Feature from "#/auth/Feature.tsx";
 import LoginForm from "#/auth/LoginForm.tsx";
 import { Navigate, useLocation} from "react-router";
 import { useAuth } from "@/context/AuthContext.tsx";
@@ -13,8 +13,8 @@ import { features } from "@/util/constants.ts";
 
 
 
-const Login = () => {
 
+const Login = () => {
 
     const {  isAuthenticated } = useAuth();
     const location = useLocation();

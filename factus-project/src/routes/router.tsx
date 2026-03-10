@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router";
 
 import { lazy, Suspense } from "react";
 import Loader from "#/common/Loader.tsx";
+import Dashboard from "#/pages/Dashboard.tsx";
 
 const App = lazy(() => import("@/templates/App"));
 const Login = lazy(() => import("@/templates/Login"));
@@ -18,6 +19,15 @@ export const router = createBrowserRouter([
         </Suspense>
       </ProtectedRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+        handle: {
+          screenTitle: "Dashboard",
+        },
+      }
+    ]
   },
   {
     path: "/login",

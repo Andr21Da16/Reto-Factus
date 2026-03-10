@@ -1,8 +1,10 @@
 import api from "@/api/axios";
-import type { ApiResponse, LoginRequest, LoginResponse, RegisterRequest, User } from "@/types";
 import Cookies from "js-cookie";
 import { useMutation } from "@tanstack/react-query";
 import { createContext, useContext ,useEffect, useState } from "react";
+
+import type { LoginRequest, RegisterRequest, User } from "@/@types/Auth.type.ts";
+import { loginUser, registerUser } from "@/service/authService.ts";
 
 interface AuthContextType {
     user: User | null;
@@ -14,36 +16,7 @@ interface AuthContextType {
     error: string | null;
 }
 
-const loginUser = async ({ email, password } : LoginRequest) => {
-    const payload = {
-        email : email,
-        password : password,
-    }
-    const response = await api.post<ApiResponse<LoginResponse>>("/auth/sign-in", payload);
 
-    if (!response.data.data) {
-        throw new Error(response.data.message);
-    }
-    return response.data.data;
-}
-
-const registerUser = async (data : RegisterRequest) => {
-    const payload = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        phone: data.phone,
-        rolId: data.rolId,
-    }
-
-    const response = await api.post<ApiResponse<User>>("/auth/sign-up", payload);
-
-    if (!response.data.data) {
-        throw new Error(response.data.message);
-    }
-    return response.data.data;
-}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
