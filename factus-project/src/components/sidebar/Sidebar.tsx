@@ -9,7 +9,7 @@ import ScreenHeader from "#/sidebar/ScreenHeader.tsx";
 import Loader from "#/common/Loader.tsx";
 import NavItems from "#/sidebar/NavItems.tsx";
 import SeparationBar from "#/common/SeparationBar.tsx";
-import { use } from "react";
+import UserInfo from "#/sidebar/UserInfo.tsx";
 
 
 const Sidebar = ({className} : ClassNameProps) => {
@@ -23,7 +23,7 @@ const Sidebar = ({className} : ClassNameProps) => {
 
 
 
-  if (!brandingSettings) {
+  if (!brandingSettings || !user) {
     return (
       <Loader/>
     )
@@ -43,16 +43,10 @@ const Sidebar = ({className} : ClassNameProps) => {
 
       <div className="relative mt-auto flex flex-col h-fit gap-6 w-full">
         <SeparationBar/>
-        <div>
-          <div className="flex items-center size-12 rounded-full overflow-hidden shrink-0 justify-center">
-            {user?.photoUrl ? <img className="flex w-full h-full object-cover" src={user.photoUrl} alt={user.firstName} /> :
-              <div className="flex flex-col w-full object-cover items-center ">
-                U
-              </div>
-            }
-          </div>
-        </div>
+        <UserInfo user={user}/>
       </div>
+
+
     </aside>
   )
 }
