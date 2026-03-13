@@ -1,13 +1,13 @@
 import ProtectedRoute from "#/common/ProtectedRoute.tsx";
 
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 import { lazy, Suspense } from "react";
 import Loader from "#/common/Loader.tsx";
-import Dashboard from "#/pages/Dashboard.tsx";
 
 const App = lazy(() => import("@/templates/App"));
 const Login = lazy(() => import("@/templates/Login"));
+const Dashboard = lazy(() => import("#/pages/Dashboard"));
 
 export const router = createBrowserRouter([
   {
@@ -22,11 +22,21 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard />,
+        element: <Navigate to="dashboard" replace />
+      },
+      {
+        index: true,
+        path: "dashboard",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Dashboard />
+          </Suspense>
+        ),
         handle: {
           screenTitle: "Dashboard",
         },
-      }
+      },
+      {}
     ]
   },
   {

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import pe.andree.retofactusbackend.dto.ApiResponse;
 import pe.andree.retofactusbackend.dto.request.auth.AuthRequestDTO;
 import pe.andree.retofactusbackend.dto.request.auth.SignupRequestDTO;
@@ -23,6 +24,7 @@ import pe.andree.retofactusbackend.repository.CompanyRepository;
 import pe.andree.retofactusbackend.repository.RolRepository;
 import pe.andree.retofactusbackend.repository.UserRepository;
 import pe.andree.retofactusbackend.security.TokenProvider;
+import pe.andree.retofactusbackend.service.FileUploadService;
 import pe.andree.retofactusbackend.service.UserService;
 
 import java.time.LocalDateTime;
@@ -37,6 +39,8 @@ public class UserServiceImpl implements UserService {
 
     private final RolRepository rolRepository;
     private final CompanyRepository companyRepository;
+
+    private final FileUploadService fileUploadService;
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManager authenticationManager;
@@ -69,11 +73,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public ApiResponse<UserProfileResponseDTO> signup(SignupRequestDTO signupRequestDTO){
+    public ApiResponse<UserProfileResponseDTO> signup(SignupRequestDTO signupRequestDTO, MultipartFile file){
         boolean emailAlreadyExists = userRepository.existsByEmail(signupRequestDTO.getEmail());
+
+
 
         if (emailAlreadyExists){
             throw new BadRequestException("The email already exits");
+        }
+
+        if (file != null){
+            fileUploadService.uploadFile(file, signupRequestDTO.getCompanyId());
         }
 
         Rol rol = rolRepository.findById(signupRequestDTO.getRolId()).orElseThrow(

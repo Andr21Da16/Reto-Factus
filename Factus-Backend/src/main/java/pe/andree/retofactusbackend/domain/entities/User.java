@@ -29,6 +29,9 @@ public class User {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @ManyToOne
     @JoinColumn(name = "rol_id")
     private Rol rol;

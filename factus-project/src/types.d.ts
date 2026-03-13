@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 interface Meta {
     page: number,
     size: number,
@@ -31,4 +33,15 @@ export interface MatchWithHandle {
 export interface ClassNameProps {
     className?: string;
 }
+
+export type NavItem = {
+    id: string;
+    label: string;
+    icon?: LucideIcon;
+    path?: string;
+    children?: NavItem[]
+    action?: string;
+
+};
+
 
