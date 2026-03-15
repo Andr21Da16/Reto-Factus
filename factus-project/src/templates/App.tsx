@@ -19,7 +19,7 @@ function App() {
 
       <Header className=" flex items-center px-6" />
 
-      <main className="bg-gray-200 rounded-2xl p-8 overflow-y-auto">
+      <main className="bg-gray-200 rounded-2xl p-3 overflow-y-auto">
         <Outlet />
       </main>
 

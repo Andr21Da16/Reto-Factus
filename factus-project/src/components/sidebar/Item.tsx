@@ -6,9 +6,10 @@ import { useAuth } from "@/context/AuthContext.tsx";
 
 type ItemProps = {
   item: NavItem
+  className: string
 }
 
-const Item = ({ item }: ItemProps) => {
+const Item = ({ item, className }: ItemProps) => {
 
   const IconComponent = item.icon;
   const { logout } = useAuth();
@@ -33,7 +34,7 @@ const Item = ({ item }: ItemProps) => {
       <li>
         <button
           onClick={handleClick}
-          className="flex gap-2 text-[14px] rounded-2xl pl-3 p-1.5 items-center hover:bg-gray-200 w-full cursor-pointer"
+          className={`flex ${className} hover:bg-gray-200 w-full cursor-pointer`}
         >
           {content}
         </button>
@@ -46,7 +47,7 @@ const Item = ({ item }: ItemProps) => {
       <NavLink
         to={item.path ?? ""}
         className={({ isActive }) =>
-          `flex gap-2 text-[14px] rounded-2xl pl-3 p-1.5 items-center
+          ` flex ${className}
           ${isActive ? "bg-black text-white" : "text-black hover:bg-gray-200"}`
         }
       >

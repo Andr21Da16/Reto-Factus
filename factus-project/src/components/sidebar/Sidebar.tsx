@@ -8,8 +8,8 @@ import type { ClassNameProps, MatchWithHandle } from "@/types";
 import ScreenHeader from "#/sidebar/ScreenHeader.tsx";
 import Loader from "#/common/Loader.tsx";
 import NavItems from "#/sidebar/NavItems.tsx";
-import SeparationBar from "#/common/SeparationBar.tsx";
-import UserInfo from "#/sidebar/UserInfo.tsx";
+
+import SideBarFooter from "#/sidebar/SideBarFooter.tsx";
 
 
 const Sidebar = ({className} : ClassNameProps) => {
@@ -23,7 +23,7 @@ const Sidebar = ({className} : ClassNameProps) => {
 
 
 
-  if (!brandingSettings || !user) {
+  if (!brandingSettings || !user?.photoUrl) {
     return (
       <Loader/>
     )
@@ -41,10 +41,7 @@ const Sidebar = ({className} : ClassNameProps) => {
       <NavItems />
 
 
-      <div className="relative mt-auto flex flex-col h-fit gap-6 w-full">
-        <SeparationBar/>
-        <UserInfo user={user}/>
-      </div>
+      <SideBarFooter user={user} />
 
 
     </aside>
